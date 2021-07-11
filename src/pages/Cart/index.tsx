@@ -37,9 +37,9 @@ const Cart = (): JSX.Element => {
   function handleProductIncrement(product: Product) {
     updateProductAmount({ productId: product.id, amount: product.amount + 1 })
   }
-  
+
   function handleProductDecrement(product: Product) {
-    if(product.amount <= 1) {
+    if (product.amount <= 1) {
       return;
     }
 
@@ -86,7 +86,7 @@ const Cart = (): JSX.Element => {
                     type="text"
                     data-testid="product-amount"
                     readOnly
-                    value={2}
+                    value={product.amount}
                   />
                   <button
                     type="button"
