@@ -58,22 +58,25 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
       setCart(updatedCart);
       localStorage.setItem('@RocketShoes:cart', JSON.stringify(updatedCart));
     } catch (err) {
-      console.log(err);
-
       toast.error('Erro na adição do produto');
     }
   };
 
   const removeProduct = (productId: number) => {
     try {
-      const productIndex = cart.findIndex(product => product.id === productId);
+      const updatedCart = [...cart];
 
-      if (productIndex) {
-        const updatedCart = cart.splice(productIndex, 1);
+      const productIndex = updatedCart.findIndex(product => product.id === productId);
 
-        setCart(updatedCart);
-        localStorage.setItem('@RocketShoes:cart', JSON.stringify(updatedCart));
+      if (productIndex === -1) {
+        toast.error('Erro na remoção do produto');
+        return;
       }
+
+      updatedCart.splice(productIndex, 1);
+
+      setCart(updatedCart);
+      localStorage.setItem('@RocketShoes:cart', JSON.stringify(updatedCart));
 
     } catch {
       toast.error('Erro na remoção do produto');
